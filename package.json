@@ -1,0 +1,27 @@
+{
+  "name": "@snivik/redux-django-boilerplates",
+  "version": "0.0.2",
+  "description": "A set of boilerplates to work with Redux & Django & Rest Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Snivik/redux-django-boilerplates.git"
+  },
+  "keywords": [
+    "redux",
+    "django",
+    "django-rest"
+  ],
+  "author": "Alexander Troshchenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Snivik/redux-django-boilerplates/issues"
+  },
+  "homepage": "https://github.com/Snivik/redux-django-boilerplates#readme",
+  "dependencies": {
+    "superagent": "^5.1.2"
+  }
+}
