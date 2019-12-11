@@ -10,7 +10,7 @@ export const apiDefaultErrorHandler = (name, actions, actionName) => (error) => 
 };
 
 
-export const buildApi = (name, options={}) => {
+export const buildViewSetApi = (name, options={}) => {
 
 
     const builderOptions = {
