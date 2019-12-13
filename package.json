@@ -1,6 +1,6 @@
 {
   "name": "@snivik/redux-django-boilerplates",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A set of boilerplates to work with Redux & Django & Rest Framework",
   "main": "index.js",
   "scripts": {
