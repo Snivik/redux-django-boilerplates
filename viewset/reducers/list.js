@@ -1,4 +1,4 @@
-import {viewSetActionNameGenerator_setResults, viewSetActionNameGenerator_setListLoading} from "../../constants";
+import {viewSetActionNameGenerator_setResults, viewSetActionNameGenerator_setListLoading} from "../../constant-generators/list";
 
 
 export const getDefaultState = () => ({
