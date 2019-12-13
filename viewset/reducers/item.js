@@ -3,7 +3,7 @@ import {
     viewSetActionNameGenerator_setItem,
     viewSetActionNameGenerator_setItemErrors,
     viewSetActionNameGenerator_setItemLoading
-} from "../../constants";
+} from "../../constant-generators/item";
 
 
 export const getDefaultState = () => ({
