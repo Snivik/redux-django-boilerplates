@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Snivik/redux-django-boilerplates#readme",
   "dependencies": {
-    "superagent": "^5.1.2"
+    "superagent": "^5.1.2",
+    "js-cookie": "^2.2.1"
   }
 }
