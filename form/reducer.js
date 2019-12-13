@@ -24,8 +24,8 @@ const buildDefaultData = (name, options) => ({});
 export const buildFormReducer = (storeName, options={}) =>{
 
     const o = {
-      buildDefaultState: buildDefaultState(storeName, options),
-      buildDefaultData: buildDefaultData(storeName, options),
+      buildDefaultState,
+      buildDefaultData,
       ...options
     };
 
