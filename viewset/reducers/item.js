@@ -19,7 +19,7 @@ export const getDefaultState = () => ({
 
 });
 
-export const buildViewSetItemReducer = (name,options) => (state=(options.getDefaultState ||getDefaultState)(), action) => {
+export const buildViewSetItemReducer = (name,options={}) => (state=(options.getDefaultState ||getDefaultState)(), action) => {
 
     const {type, ...data} = action;
 

@@ -1,6 +1,6 @@
 import {API_ACTION_GET_ITEM} from "./constants";
 
-export const buildApiGetItem = (name, actions, options) => (id) => dispatch => {
+export const buildApiGetItem = (name, actions, options={}) => (id) => dispatch => {
 
     const {agent, baseUrl, onError} = options;
 
