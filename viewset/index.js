@@ -1,19 +1,25 @@
 
 import {buildViewSetActions} from "./actions";
-import {buildApi} from "./api";
-import {buildReducers} from "./reducers";
+import {buildViewSetApi} from "./api";
+import {buildViewSetReducers} from "./reducers";
 
 
 export const buildViewSetReducerAndActions = (name,
-                                              apiOptions={},
-                                              reducerOptions={},
-                                              actionOptions={}
+                                              options={}
                                               ) => {
 
+
+        const o = {
+            api: {},
+            reducers: {},
+            actions: {},
+            ...options,
+        };
+
         return {
-            api: buildApi(name, apiOptions),
-            reducers: buildReducers(name, reducerOptions),
-            actions: buildViewSetActions(name, actionOptions)
+            api: buildViewSetApi(name, o.api),
+            reducers: buildViewSetReducers(name, o.reducers),
+            actions: buildViewSetActions(name, o.actions)
         }
 
 
