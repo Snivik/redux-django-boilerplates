@@ -24,7 +24,8 @@ export const buildViewSetApi = (name, options={}) => {
 
     return {
         list: buildApiGetList(name, actions, builderOptions),
-        get: buildApiGetItem(name, actions, builderOptions)
+        get: buildApiGetItem(name, actions, builderOptions),
+        update: buildApiUpdateItem(name, actions, builderOptions)
     }
 
 };

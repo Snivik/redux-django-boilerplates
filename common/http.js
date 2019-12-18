@@ -7,6 +7,8 @@ export const makeRequests = () => {
 
     return {
 
+        ...superagent,
+
         post: (url, data) => {
             return superagent.post(url, data).set('X-CSRFToken', csrf);
         }
