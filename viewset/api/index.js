@@ -1,7 +1,7 @@
-import r from 'superagent';
 import {buildViewSetActions} from "../actions";
 import {buildApiGetList} from "./list";
-import {buildApiGetItem} from "./item";
+import {buildApiGetItem, buildApiUpdateItem} from "./item";
+import {requests} from "../../common/http";
 
 export const apiDefaultErrorHandler = (name, actions, actionName) => (error) => {
 
@@ -14,7 +14,7 @@ export const buildViewSetApi = (name, options={}) => {
 
 
     const builderOptions = {
-        agent: r,
+        agent: requests,
         baseUrl: '/api',
         onError: apiDefaultErrorHandler,
         ...options
