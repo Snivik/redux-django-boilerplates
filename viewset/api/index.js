@@ -1,5 +1,5 @@
 import {buildViewSetActions} from "../actions";
-import {buildApiGetList} from "./list";
+import {buildApiDeleteListItem, buildApiGetList} from "./list";
 import {buildApiGetItem, buildApiUpdateItem} from "./item";
 import {requests} from "../../common/http";
 
@@ -23,9 +23,16 @@ export const buildViewSetApi = (name, options={}) => {
     const actions = buildViewSetActions(name);
 
     return {
-        list: buildApiGetList(name, actions, builderOptions),
-        get: buildApiGetItem(name, actions, builderOptions),
-        update: buildApiUpdateItem(name, actions, builderOptions)
+
+
+        list: buildApiGetList({name, actions, options: builderOptions}),
+
+        delete: buildApiDeleteListItem({name, actions, options: builderOptions}),
+
+
+        get: buildApiGetItem({name, actions, options: builderOptions}),
+        update: buildApiUpdateItem({name, actions, options: builderOptions}),
+
     }
 
 };

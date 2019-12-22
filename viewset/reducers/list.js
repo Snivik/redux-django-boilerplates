@@ -1,10 +1,10 @@
 import {viewSetActionNameGenerator_setResults, viewSetActionNameGenerator_setListLoading} from "../../constant-generators/list";
 
 
-export const getDefaultState = () => ({
+export const getDefaultState = (name, options={}) => ({
 
     loading: true, // By default store has no items
-
+    name,
 
     error: null,
 
@@ -13,11 +13,17 @@ export const getDefaultState = () => ({
     next: null,
     previous: null,
     count: undefined,
+    offset: null,
+    // Use that to determine arguments for list requests
+    filters: {},
+    order: null,
 
+    // To have an abilitity to oveerride state
+    ...(options.getDefaultState && options.getDefaultState()) || {}
 
 });
 
-export const buildViewSetListReducer = (name) => (state=getDefaultState(), action) => {
+export const buildViewSetListReducer = (name, options) => (state=getDefaultState(name, options), action) => {
 
     const {type, ...data} = action;
 

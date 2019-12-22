@@ -1,6 +1,6 @@
 import {API_ACTION_GET_ITEM, API_ACTION_UPDATE_ITEM} from "./constants";
 
-export const buildApiGetItem = (name, actions, options={}) => (id) => dispatch => {
+export const buildApiGetItem = ({name, actions, options={}}) => (id) => dispatch => {
 
     const {agent, baseUrl, onError} = options;
 
@@ -20,7 +20,7 @@ export const buildApiGetItem = (name, actions, options={}) => (id) => dispatch =
 
 
 
-export const buildApiUpdateItem = (name, actions, options={}) => (id, data) => dispatch => {
+export const buildApiUpdateItem = ({name, actions, options={}}) => (id, data) => dispatch => {
 
     const {agent, baseUrl, onError} = options;
 

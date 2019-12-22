@@ -20,3 +20,21 @@ export const mapFromArray = (array, indexGetter=basicIndexGetter, processor=basi
 
     return map;
 };
+
+
+/**
+ * Returns query array from store that represents order + filters
+ * @param store
+ */
+export const getQueryFromListStore = store => {
+
+    const {filters={}, order} = store;
+
+    if (order){
+        return {...filters, order};
+    } else {
+        return {...filters};
+    }
+
+
+};
