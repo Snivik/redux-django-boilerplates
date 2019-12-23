@@ -1,4 +1,8 @@
-import {viewSetActionNameGenerator_setResults, viewSetActionNameGenerator_setListLoading} from "../../constant-generators/list";
+import {
+    viewSetActionNameGenerator_setResults,
+    viewSetActionNameGenerator_setListLoading,
+    viewSetActionNameGenerator_setOrder, viewSetActionNameGenerator_setFilters
+} from "../../constant-generators/list";
 
 
 export const getDefaultState = (name, options={}) => ({
@@ -34,6 +38,13 @@ export const buildViewSetListReducer = (name, options) => (state=getDefaultState
 
        case viewSetActionNameGenerator_setResults(name):
            return {...state, ...data};
+
+       case viewSetActionNameGenerator_setOrder(name):
+           return {...state, order: action.order};
+
+       case viewSetActionNameGenerator_setFilters(name):
+           return {...state, filters: action.filters};
+
        default:
            return state;
    }

@@ -11,13 +11,13 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
         params = {...(store.params || {}), ...params};
 
         //
-        if (store.order){
+        if (store.order && !params.order){
             params.order = store.order;
         }
 
         // Assign count and offset values
-        if (store.offset) params.offset = store.offset;
-        if (store.count) params.count = store.count;
+        if (store.offset && !params.offset) params.offset = store.offset;
+        if (store.count && !params.count) params.count = store.count;
     }
 
     dispatch(actions.setListLoading({loading: true}));
@@ -76,9 +76,12 @@ export const buildApiSetListFilter = (builderParams) => (params) => dispatch => 
 
 };
 
-export const buildApiSetListOrder = (builderParams) => (params) => dispatch => {
+export const buildApiSetListOrder = (builderParams) => (order, args={}) => dispatch => {
 
+    if (!args.params) args.params = {};
+    args.params.order = order;
 
+    return dispatch(buildApiGetList(builderParams)(args));
 
 };
 
