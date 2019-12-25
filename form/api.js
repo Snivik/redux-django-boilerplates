@@ -23,6 +23,8 @@ export const buildFormApiAction = (formActions, service, options={}) => dispatch
 
         }
 
+        return errorResp;
+
     };
 
 
@@ -31,12 +33,12 @@ export const buildFormApiAction = (formActions, service, options={}) => dispatch
 
 
 
-    return service(dispatch).catch(onError).finally(()=>dispatch(formActions.setLoading(false)));
+    return service(dispatch).catch(onError).then((resp)=>{dispatch(formActions.setLoading(false)); return resp;});
 
 };
 
 
-const defaultBuildCreate = (name, {baseUrl='/api', viewset = name, formActions, ...options}) => data => {
+const defaultBuildCreate = (name, {baseUrl='/api', viewSet = name, formActions, ...options}) => data => {
 
     const defaultOnSuccess = (r, dispatch) => {
         return dispatch(formActions.setFormData(r.body))
@@ -47,7 +49,7 @@ const defaultBuildCreate = (name, {baseUrl='/api', viewset = name, formActions, 
         const validation = getResponseValidationErrors(r);
 
         if (validation){
-            return dispatch(formActions.setErrors({validation}));
+            return dispatch(formActions.setErrors({validation, error: ''}));
         } else {
             console.dir(r);
             return dispatch(formActions.setErrors({error: `Failed with status ${r.status}. See console for details.`}));
@@ -60,7 +62,7 @@ const defaultBuildCreate = (name, {baseUrl='/api', viewset = name, formActions, 
         onFail = defaultOnFail,
     } = options;
 
-    const service = (dispatch) => requests.post(`${baseUrl}/${viewset}/`, data)
+    const service = (dispatch) => requests.post(`${baseUrl}/${viewSet}/`, data)
         .then(resp=>onSuccess(resp, dispatch))
         .catch(resp=>onFail(resp, dispatch));
 
