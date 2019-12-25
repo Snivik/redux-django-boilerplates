@@ -49,7 +49,8 @@ const defaultBuildCreate = (name, {baseUrl='/api', viewset = name, formActions, 
         if (validation){
             return dispatch(formActions.setErrors({validation}));
         } else {
-            return dispatch(formActions.setErrors({error: r.response.text}));
+            console.dir(r);
+            return dispatch(formActions.setErrors({error: `Failed with status ${r.status}. See console for details.`}));
         }
 
     };
