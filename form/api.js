@@ -6,12 +6,32 @@
  */
 import {buildFormActions} from "./actions";
 import {requests} from "../common/http";
+import {getResponseValidationErrors} from "../common/helpers";
 
-export const buildFormApiAction = (formActions, service) => dispatch => {
+
+
+export const buildFormApiAction = (formActions, service, options={}) => dispatch => {
 
     dispatch(formActions.setLoading(true));
 
-    return service(dispatch).finally(()=>dispatch(formActions.setLoading(false)));
+    const _onError = (errorResp) => {
+
+        // That's a global error
+        if (errorResp.status && errorResp.status === 403){
+
+            dispatch(formActions.setErrors({error: errorResp.response.text}));
+
+        }
+
+    };
+
+
+
+    const onError = options.onError || _onError;
+
+
+
+    return service(dispatch).catch(onError).finally(()=>dispatch(formActions.setLoading(false)));
 
 };
 
@@ -23,7 +43,15 @@ const defaultBuildCreate = (name, {baseUrl='/api', viewset = name, formActions, 
     };
 
     const defaultOnFail = (r, dispatch) => {
-        console.error(r)
+
+        const validation = getResponseValidationErrors(r);
+
+        if (validation){
+            return dispatch(formActions.setErrors({validation}));
+        } else {
+            return dispatch(formActions.setErrors({error: r.response.text}));
+        }
+
     };
 
     const {
@@ -35,7 +63,7 @@ const defaultBuildCreate = (name, {baseUrl='/api', viewset = name, formActions, 
         .then(resp=>onSuccess(resp, dispatch))
         .catch(resp=>onFail(resp, dispatch));
 
-    return buildFormApiAction(formActions, service)
+    return buildFormApiAction(formActions, service, {...options})
 };
 
 
@@ -49,7 +77,7 @@ export const buildFormApi = (name, options) => {
 
     const formActions = buildFormActions(name, {...actionsOptions, ...otherOptions});
 
-    const create = buildCreate(name, {formActions, ...createOptions, ...otherOptions})
+    const create = buildCreate(name, {formActions, ...createOptions, ...otherOptions});
 
 
     return {create}

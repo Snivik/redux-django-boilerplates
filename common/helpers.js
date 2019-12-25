@@ -38,3 +38,28 @@ export const getQueryFromListStore = store => {
 
 
 };
+
+
+
+export const getResponseValidationErrors = (response) => {
+
+
+    if (response.status !== 400) return null;
+
+
+    try {
+        const validationErrors = JSON.parse(response.response.text);
+
+        if (typeof validationErrors === 'object' && Object.keys(validationErrors).length){
+            return validationErrors;
+        }
+    } catch(e){
+        // Do nothing really
+        console.warn(`400 request checked for validation errors and has no parseable JSON`);
+        console.warn(response.response.text);
+        console.dir(response);
+        console.warn(e);
+    }
+    return null;
+
+};

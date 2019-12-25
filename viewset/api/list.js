@@ -8,7 +8,7 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
     const {agent, baseUrl,onError} = options;
     if (store){
 
-        params = {...(store.params || {}), ...params};
+        params = {...(store.filters || {}), ...params};
 
         //
         if (store.order && !params.order){
@@ -32,6 +32,10 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
         // Set the store filters equal to the ones
         if (_order) dispatch(actions.setOrder({order: _order}));
         if (_filters && Object.keys(_filters).length > 0) dispatch(actions.setFilters({filters: _filters}));
+
+        // Do not update the count
+        body.lastResultCount = body.count;
+        delete body.count;
 
         return dispatch(actions.setResults(body))
 
