@@ -5,14 +5,14 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
     const {name, actions, options={}} = builderParams;
     let {params={}, store} = args;
 
-    const {agent, baseUrl,onError} = options;
+    const {agent, baseUrl,onError, viewset=name} = options;
     if (store){
 
         params = {...(store.filters || {}), ...params};
 
         //
-        if (store.order && !params.order){
-            params.order = store.order;
+        if (store.ordering && !params.ordering){
+            params.ordering = store.ordering;
         }
 
         // Assign count and offset values
@@ -22,15 +22,15 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
 
     dispatch(actions.setListLoading({loading: true}));
 
-    return agent.get(`${baseUrl}/${name}/`, params).then(resp => {
+    return agent.get(`${baseUrl}/${viewset}/`, params).then(resp => {
         const {body} = resp;
 
-        // Param is a set of order + some filters. Set them
-        const {order: _order, count, offset,
+        // Param is a set of ordering + some filters. Set them
+        const {ordering: _ordering, count, offset,
                 ..._filters} = params;
 
         // Set the store filters equal to the ones
-        if (_order) dispatch(actions.setOrder({order: _order}));
+        if (_ordering) dispatch(actions.setOrder({ordering: _ordering}));
         if (_filters && Object.keys(_filters).length > 0) dispatch(actions.setFilters({filters: _filters}));
 
         // Do not update the count
@@ -58,10 +58,10 @@ export const buildApiDeleteListItem = (builderParams={}) => (id, args) => dispat
 
     const {name, actions, options={}} = builderParams;
     //let {store} = args;
-    const {agent, baseUrl,onError} = options;
+    const {agent, baseUrl,onError, viewset=name} = options;
     dispatch(actions.setListLoading(true));
 
-    return agent.delete(`${baseUrl}/${name}/${id}/`).then(response=>{
+    return agent.delete(`${baseUrl}/${viewset}/${id}/`).then(response=>{
 
         // Coolio, now the deleted item should be reflected in the new slice
         return dispatch(getList);
@@ -80,10 +80,10 @@ export const buildApiSetListFilter = (builderParams) => (params) => dispatch => 
 
 };
 
-export const buildApiSetListOrder = (builderParams) => (order, args={}) => dispatch => {
+export const buildApiSetListOrder = (builderParams) => (ordering, args={}) => dispatch => {
 
     if (!args.params) args.params = {};
-    args.params.order = order;
+    args.params.ordering = ordering;
 
     return dispatch(buildApiGetList(builderParams)(args));
 

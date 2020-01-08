@@ -2,11 +2,11 @@ import {API_ACTION_GET_ITEM, API_ACTION_UPDATE_ITEM} from "./constants";
 
 export const buildApiGetItem = ({name, actions, options={}}) => (id) => dispatch => {
 
-    const {agent, baseUrl, onError} = options;
+    const {agent, baseUrl, onError, viewset=name} = options;
 
     dispatch(actions.setItemLoading({loading: true} ));
 
-    return agent.get(`${baseUrl}/${name}/${id}/`).then(resp => {
+    return agent.get(`${baseUrl}/${viewset}/${id}/`).then(resp => {
         const {body} = resp;
         return dispatch(actions.setItem({data: body}))
 
@@ -22,11 +22,11 @@ export const buildApiGetItem = ({name, actions, options={}}) => (id) => dispatch
 
 export const buildApiUpdateItem = ({name, actions, options={}}) => (id, data) => dispatch => {
 
-    const {agent, baseUrl, onError} = options;
+    const {agent, baseUrl, onError, viewset=name} = options;
 
     dispatch(actions.setItemLoading({loading: true} ));
 
-    return agent.patch(`${baseUrl}/${name}/${id}/`, data).then(resp => {
+    return agent.patch(`${baseUrl}/${viewset}/${id}/`, data).then(resp => {
         const {body} = resp;
         return dispatch(actions.setItem({data: body}))
 

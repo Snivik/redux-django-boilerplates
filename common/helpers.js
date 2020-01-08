@@ -23,15 +23,15 @@ export const mapFromArray = (array, indexGetter=basicIndexGetter, processor=basi
 
 
 /**
- * Returns query array from store that represents order + filters
+ * Returns query array from store that represents ordering + filters
  * @param store
  */
 export const getQueryFromListStore = store => {
 
-    const {filters={}, order} = store;
+    const {filters={}, ordering} = store;
 
-    if (order){
-        return {...filters, order};
+    if (ordering){
+        return {...filters, ordering};
     } else {
         return {...filters};
     }

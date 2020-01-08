@@ -20,7 +20,7 @@ export const getDefaultState = (name, options={}) => ({
     offset: null,
     // Use that to determine arguments for list requests
     filters: {},
-    order: null,
+    ordering: null,
 
     // To have an abilitity to oveerride state
     ...(options.getDefaultState && options.getDefaultState()) || {}
@@ -40,7 +40,7 @@ export const buildViewSetListReducer = (name, options) => (state=getDefaultState
            return {...state, ...data};
 
        case viewSetActionNameGenerator_setOrder(name):
-           return {...state, order: action.order};
+           return {...state, ordering: action.ordering};
 
        case viewSetActionNameGenerator_setFilters(name):
            return {...state, filters: action.filters};
