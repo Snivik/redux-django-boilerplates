@@ -15,6 +15,7 @@ export const getDefaultState = (name, options={}) => ({
     // That's a list
     results: [],
     next: null,
+    limit: null,
     previous: null,
     count: undefined,
     offset: null,

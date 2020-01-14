@@ -16,8 +16,9 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
         }
 
         // Assign count and offset values
-        if (store.offset && !params.offset) params.offset = store.offset;
-        if (store.count && !params.count) params.count = store.count;
+        if (store.offset && params.offset === undefined) params.offset = store.offset;
+        if (store.count && params.count === undefined) params.count = store.count;
+        if (store.limit && params.limit === undefined) params.limit = store.limit;
     }
 
     dispatch(actions.setListLoading({loading: true}));
@@ -26,12 +27,16 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
         const {body} = resp;
 
         // Param is a set of ordering + some filters. Set them
-        const {ordering: _ordering, count, offset,
+        const {ordering: _ordering, limit: _limit, count, offset: _offset,
                 ..._filters} = params;
 
         // Set the store filters equal to the ones
         if (_ordering) dispatch(actions.setOrder({ordering: _ordering}));
         if (_filters && Object.keys(_filters).length > 0) dispatch(actions.setFilters({filters: _filters}));
+        if (_offset !== undefined) dispatch(actions.setResults({offset: _offset}));
+        if (_limit !== undefined) dispatch(actions.setResults({limit: _limit}));
+
+
 
         // Do not update the count
         body.lastResultCount = body.count;
@@ -44,6 +49,75 @@ export const buildApiGetList = (builderParams={}) => (args={}) => dispatch => {
     );
 
 };
+
+
+
+const getParamsMapFromURL = (url) => {
+
+    const search = url.split('?')[1];
+    const pairs = search.split('&');
+
+    const params = {};
+
+    for (const pair of pairs){
+        const [key, val] = pair.split('=');
+        params[key] = decodeURIComponent(val);
+    }
+
+    return params;
+};
+
+/**
+ * Builds API to load next page
+ * @param builderParams
+ * @returns {function(*=): function(*): Promise<unknown>}
+ */
+export const buildApiNextPage = (builderParams={}) => (args={}) => dispatch => {
+
+    const {actions} = builderParams;
+    let {store} = args;
+    if (store && store.next){
+
+        const params = getParamsMapFromURL(store.next);
+
+
+        if (!args.params) args.params = {};
+        args.params = {...args.params, params};
+        dispatch(actions.setResults(params));
+
+        dispatch(buildApiGetList(builderParams)(args))
+
+    }
+
+
+
+};
+
+/**
+ * Builds API to load next page
+ * @param builderParams
+ * @returns {function(*=): function(*): Promise<unknown>}
+ */
+export const buildApiPreviousPage = (builderParams={}) => (args={}) => dispatch => {
+
+    const {actions} = builderParams;
+    let {store} = args;
+    if (store && store.previous){
+
+        const params = getParamsMapFromURL(store.previous);
+
+
+        if (!args.params) args.params = {};
+        args.params = {...args.params, params};
+        dispatch(actions.setResults(params));
+
+        dispatch(buildApiGetList(builderParams)(args))
+
+    }
+
+};
+
+
 
 
 /**

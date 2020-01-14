@@ -20,8 +20,13 @@ export const makeRequests = () => {
         patch: (url, data) => {
             const csrf  = cookieCSRFToken();
             return superagent.patch(url, data).set('X-CSRFToken', csrf);
-        }
+        },
 
+        delete: (url, data) => {
+            const csrf  = cookieCSRFToken();
+            return superagent.delete(url, data).set('X-CSRFToken', csrf);
+
+        }
 
 
     };
@@ -31,5 +36,7 @@ export const makeRequests = () => {
 
 
 };
+
+
 
 export const requests = makeRequests();

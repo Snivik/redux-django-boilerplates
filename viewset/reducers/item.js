@@ -2,14 +2,14 @@ import {
     viewSetActionNameGenerator_clearItemChanges,
     viewSetActionNameGenerator_setItem,
     viewSetActionNameGenerator_setItemErrors,
-    viewSetActionNameGenerator_setItemLoading
+    viewSetActionNameGenerator_setItemLoading,
+    viewSetActionNameGenerator_updateData
 } from "../../constant-generators/item";
 
 
 export const getDefaultState = () => ({
 
     loading: true, // By default store has no items
-
 
     data: {},
     updatedData: {},
@@ -36,6 +36,9 @@ export const buildViewSetItemReducer = (name,options={}) => (state=(options.getD
 
         case viewSetActionNameGenerator_clearItemChanges(name):
             return {...state, updatedData: {}, error: null, validationErrors: null};
+
+        case viewSetActionNameGenerator_updateData(name):
+            return {...state, updatedData: {...state.updatedData, ...data.data} };
 
         default:
             return state;

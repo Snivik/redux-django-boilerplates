@@ -1,5 +1,11 @@
 import {buildViewSetActions} from "../actions";
-import {buildApiDeleteListItem, buildApiGetList, buildApiSetListOrder} from "./list";
+import {
+    buildApiDeleteListItem,
+    buildApiGetList,
+    buildApiNextPage,
+    buildApiPreviousPage,
+    buildApiSetListOrder
+} from "./list";
 import {buildApiGetItem, buildApiUpdateItem} from "./item";
 import {requests} from "../../common/http";
 
@@ -28,7 +34,12 @@ export const buildViewSetApi = (name, options={}) => {
 
 
         list: buildApiGetList(builderParams),
+
         setListOrder: buildApiSetListOrder(builderParams),
+        loadPreviousPage: buildApiPreviousPage(builderParams),
+        loadNextPage: buildApiNextPage(builderParams),
+
+
         delete: buildApiDeleteListItem(builderParams),
 
 
