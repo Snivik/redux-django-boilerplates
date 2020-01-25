@@ -28,13 +28,16 @@ export const mapFromArray = (array, indexGetter=basicIndexGetter, processor=basi
  */
 export const getQueryFromListStore = store => {
 
-    const {filters={}, ordering} = store;
+    const {filters={}, limit, offset, ordering} = store;
 
-    if (ordering){
-        return {...filters, ordering};
-    } else {
-        return {...filters};
-    }
+    const query = {...filters};
+
+    if (limit !== undefined) query.limit = limit;
+    if (offset !== undefined) query.offset = offset;
+    if (ordering !== undefined) query.ordering = ordering;
+
+
+    return query;
 
 
 };
