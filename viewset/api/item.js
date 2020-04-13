@@ -28,7 +28,7 @@ export const buildApiUpdateItem = ({name, actions, options={}}) => (id, data) =>
 
     return agent.patch(`${baseUrl}/${viewset}/${id}/`, data).then(resp => {
         const {body} = resp;
-        return dispatch(actions.setItem({data: body}))
+        return dispatch(actions.setItem({data: body, updatedData: {}}))
 
     }).catch(onError(name, actions, API_ACTION_UPDATE_ITEM)).finally(
         ()=>dispatch(actions.setItemLoading({loading: false} ))
