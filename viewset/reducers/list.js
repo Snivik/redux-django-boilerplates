@@ -17,7 +17,7 @@ export const getDefaultState = (name, options={}) => ({
 
     error: null,
 
-    // That's a list
+    // That's a viewset
     results: [],
     edited: [],
 
@@ -28,7 +28,7 @@ export const getDefaultState = (name, options={}) => ({
     previous: null,
     count: undefined,
     offset: null,
-    // Use that to determine arguments for list requests
+    // Use that to determine arguments for viewset requests
     filters: {},
     ordering: null,
 

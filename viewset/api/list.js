@@ -121,7 +121,7 @@ export const buildApiPreviousPage = (builderParams={}) => (args={}) => dispatch 
 
 
 /**
- * Makes API call to delete item, then refreshes the list at current state
+ * Makes API call to delete item, then refreshes the viewset at current state
  * @param builderParams
  * @returns {function(*=): Function}
  */
