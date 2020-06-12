@@ -15,7 +15,9 @@ export const requests = {
 
     get: (url, params) => {
 
-        const headers = {};
+        const headers = {
+            'requesting-client': 'react-native'
+        };
 
         const query = getQueryFromParams(params);
 
@@ -31,7 +33,8 @@ export const requests = {
 
     post: (url, body) => {
         const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'requesting-client': 'react-native'
         };
 
 
@@ -50,7 +53,8 @@ export const requests = {
     patch: (url, body) => {
 
         const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'requesting-client': 'react-native'
         };
 
         return fetch(`${url}`,

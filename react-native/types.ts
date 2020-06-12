@@ -1,9 +1,10 @@
 import {ViewSetAction, ViewSetActions, ViewSetApi, ViewSetState} from "./viewset/types";
-import {FormAction, FormActions, FormState} from "./form/types";
+import {FormAction, FormActions, FormApi, FormState} from "./form/types";
 
 
 export interface ReactNativeAPI {
     list: ViewSetApi,
+    form: FormApi,
 }
 
 export interface ReactNativeActions {

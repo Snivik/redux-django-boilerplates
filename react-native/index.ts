@@ -1,6 +1,6 @@
 import {BuilderProps, ReactNativeState, RNReducersActionsAndAPI} from "./types";
 import {generateViewSetReducerWithActionsAndApi} from "./viewset/reducer";
-import {generateFormReducerWithActionsAndApi} from "./form";
+import {generateFormReducerWithActionsAndApi} from "./form/reducer";
 import {ViewSetAction} from "./viewset/types";
 import {FormAction} from "./form/types";
 
@@ -16,7 +16,8 @@ export function buildRNReducersActionsAndAPI(props: BuilderProps) : RNReducersAc
 
     const {
         actions: formActions,
-        reducer: formReducer
+        reducer: formReducer,
+        api: formApi,
     } = generateFormReducerWithActionsAndApi(props);
 
 
@@ -30,7 +31,7 @@ export function buildRNReducersActionsAndAPI(props: BuilderProps) : RNReducersAc
     };
 
     return {
-        api: {list: listApi},
+        api: {list: listApi, form: formApi},
         actions: {list: listActions, form: formActions},
         reducers
     }

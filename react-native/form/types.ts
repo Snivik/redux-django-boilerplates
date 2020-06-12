@@ -8,6 +8,7 @@ export interface FormState {
     loading: boolean,
 }
 
+/* Store Actions */
 export interface FormAction extends ReduxAction {
 }
 
@@ -45,7 +46,23 @@ export interface FormActions {
 }
 
 
+/* Api Actions */
+export interface FormApiAction {
+
+}
+
+export interface UpdateFormApiAction extends FormApiAction {
+    id: string|number,
+    updates: object
+}
+
+
+export interface FormApi {
+    update: (params: UpdateFormApiAction) => (dispatch: Function) => Promise<any>
+}
+
 export interface FormReducerWithActionsAndApi  {
     reducer: (state: FormState | null, action: FormAction) => FormState,
     actions: FormActions,
+    api: FormApi,
 }

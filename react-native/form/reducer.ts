@@ -8,6 +8,7 @@ import {
     SetErrorsAction, UpdateAction
 } from "./types";
 import {BuilderProps} from "../types";
+import {generateFormApi} from "./api";
 
 
 const initialState : ()=> FormState = () => ({
@@ -58,6 +59,9 @@ const generateFormReducer = (props: BuilderProps) : (state: FormState, action: F
         case actions.clearErrors:
             return {...state, error: null, validation: {} };
 
+        case actions.clearForm:
+            return {...state, updatedData: {}};
+
         case actions.reset:
             return initialState();
 
@@ -74,10 +78,11 @@ export const generateFormReducerWithActionsAndApi = (props: BuilderProps) : Form
 
     const actions = generateFormActions(props);
     const reducer = generateFormReducer(props);
-
+    const api = generateFormApi(props);
 
     return {
         actions,
-        reducer
+        reducer,
+        api,
     }
 };

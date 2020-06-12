@@ -5,7 +5,7 @@ import {requests} from "../../fetch/requests";
 export const buildListItemsAction =
 
     (actions : ViewSetActions, reducerProps : BuilderProps) =>
-        (params : ViewSetListApiAction) => (dispatch : Function) : Promise<any> => {
+    (params : ViewSetListApiAction) => (dispatch : Function) : Promise<any> => {
 
             // Dispatch loading
             dispatch(actions.setLoading(true));
@@ -36,7 +36,7 @@ export const buildListItemsAction =
                 return data;
 
             }).catch(e => {
-            
+
                 dispatch(actions.setLoading(false));
                 throw(e);
 
