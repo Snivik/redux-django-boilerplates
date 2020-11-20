@@ -6,7 +6,7 @@ import {
     viewSetActionNameGenerator_editInline,
     viewSetActionNameGenerator_cancelInlineEdit,
     viewSetActionNameGenerator_updateInlineField,
-    viewSetActionNameGenerator_clearInlineForm
+    viewSetActionNameGenerator_clearInlineForm, viewSetActionNameGenerator_setResultItem
 } from "../../constant-generators/list";
 
 import {buildViewSetAction} from "./index";
@@ -38,6 +38,11 @@ const _clearInlineForm = name => (id) => ({
    id,
 });
 
+const _setResultItem = name => (item) => ({
+    type: viewSetActionNameGenerator_setResultItem(name),
+    item
+})
+
 export const buildViewSetListActions = (name) => {
 
     return {
@@ -45,7 +50,7 @@ export const buildViewSetListActions = (name) => {
         // List utils
         setListLoading: buildViewSetAction(viewSetActionNameGenerator_setListLoading, name),
         setResults: buildViewSetAction(viewSetActionNameGenerator_setResults, name),
-
+        setResultItem: _setResultItem(name),
         setOrder: buildViewSetAction(viewSetActionNameGenerator_setOrder, name),
         setFilters: buildViewSetAction(viewSetActionNameGenerator_setFilters, name),
 

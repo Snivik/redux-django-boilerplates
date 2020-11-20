@@ -6,7 +6,7 @@ import {
     viewSetActionNameGenerator_editInline,
     viewSetActionNameGenerator_cancelInlineEdit,
     viewSetActionNameGenerator_updateInlineField,
-    viewSetActionNameGenerator_clearInlineForm
+    viewSetActionNameGenerator_clearInlineForm, viewSetActionNameGenerator_setResultItem
 } from "../../constant-generators/list";
 
 
@@ -81,6 +81,27 @@ const clearInlineForm = (state, action) => {
 
 };
 
+const updateItemInList = (state, action) => {
+
+    const {item} = action;
+    const {results} = state;
+
+    // If there are results
+    if (results && results.length){
+
+        const copy = [];
+        results.forEach(eItem=>{
+            if (eItem.id === item.id) copy.push(item);
+            else copy.push(eItem);
+        });
+
+        return {...state, results: copy};
+    }
+
+    return state;
+
+}
+
 export const buildViewSetListReducer = (name, options) => (state=getDefaultState(name, options), action) => {
 
     const {type,...data} = action;
@@ -107,6 +128,8 @@ export const buildViewSetListReducer = (name, options) => (state=getDefaultState
 
        case viewSetActionNameGenerator_setResults(name):
            return {...state, ...data};
+       case viewSetActionNameGenerator_setResultItem(name):
+           return updateItemInList(state, action);
 
        case viewSetActionNameGenerator_setOrder(name):
            return {...state, ordering: action.ordering};
